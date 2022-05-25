@@ -1,18 +1,18 @@
 package resources;
 
+import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
+import java.io.*;
+import java.util.Properties;
 
 public class commonUtils {
     RequestSpecification req;
-    public RequestSpecification requestSpecification() throws FileNotFoundException {
+    public RequestSpecification requestSpecification() throws IOException {
 
         /*
         Return type for RequestSpecBuilder is RequestSpecification
@@ -22,10 +22,20 @@ public class commonUtils {
         Filter is applied to req object
          */
         PrintStream log = new PrintStream(new FileOutputStream("RequestResponseLogs.txt"));
-        req = new RequestSpecBuilder().setBaseUri("https://rahulshettyacademy.com").addQueryParam("key", "qaclick123")
+        req = new RequestSpecBuilder().setBaseUri(getGlobalValues("baseUrl")).addQueryParam("key", "qaclick123")
                 .addFilter(RequestLoggingFilter.logRequestTo(log))
                 .addFilter(ResponseLoggingFilter.logResponseTo(log))
                 .setContentType(ContentType.JSON).build();
         return req;
+
+    }
+
+    //setBaseUri expects String as return type, made it static to access directly
+    public static String getGlobalValues(String key) throws IOException {
+        Properties fileValues = new Properties();
+        FileInputStream filepath  =  new FileInputStream("T:\\restAssuredWorkSpace\\src\\test\\java\\resources\\global.properties");
+        fileValues.load(filepath);
+        return fileValues.getProperty(key);
+
     }
 }

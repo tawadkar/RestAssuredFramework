@@ -16,6 +16,7 @@ import resources.TestDataBuilder;
 import resources.commonUtils;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class addPlaceValidations extends commonUtils {
     Response response;
     TestDataBuilder data = new TestDataBuilder();
     @Given("Add Place Payload")
-    public void add_place_payload() throws FileNotFoundException {
+    public void add_place_payload() throws IOException {
 
         //Request Body, since this class is inheriting commonUtils we can use method from utils class directly without creating any object
         res = given().spec(requestSpecification())
