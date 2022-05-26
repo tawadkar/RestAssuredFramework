@@ -8,14 +8,14 @@ import java.util.List;
 
 public class TestDataBuilder {
 
-    public addLocation addPlacePayload(){
+    public addLocation addPlacePayload(String name, String language, String address ){
         pojoClasses.addLocation l = new addLocation();
         l.setAccuracy(50);
-        l.setAddress("29 side layout cohen 09");
-        l.setLanguage("French-IN");
+        l.setAddress(address);
+        l.setLanguage(language);
         l.setPhone_number("(+91) 983 893 3937");
         l.setWebsite("https://rahulshettyacademy.com");
-        l.setName("Tanmay Frontline house");
+        l.setName(name);
 
         //Set type has return type as List, therefore we created list before passing it to setTypes
         //types is a separate list of strings and do not contain key value pairs hence pojo is not created

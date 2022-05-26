@@ -27,13 +27,13 @@ public class addPlaceValidations extends commonUtils {
     ResponseSpecification respec;
     Response response;
     TestDataBuilder data = new TestDataBuilder();
-    @Given("Add Place Payload")
-    public void add_place_payload() throws IOException {
-
+    @Given("Add Place Payload with {string} {string} {string}")
+    public void add_place_payload_with(String name, String language, String address) throws IOException {
         //Request Body, since this class is inheriting commonUtils we can use method from utils class directly without creating any object
         res = given().spec(requestSpecification())
-                .body(data.addPlacePayload());
+                .body(data.addPlacePayload(name,language,address));
     }
+
     @When("User calls {string} api with POST Request")
     public void user_calls_api_with_post_request(String string) {
         respec = new ResponseSpecBuilder().expectStatusCode(200).expectContentType(ContentType.JSON).build();
