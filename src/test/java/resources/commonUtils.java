@@ -11,7 +11,7 @@ import java.io.*;
 import java.util.Properties;
 
 public class commonUtils {
-    RequestSpecification req;
+    public static RequestSpecification req;
     public RequestSpecification requestSpecification() throws IOException {
 
         /*
@@ -20,13 +20,18 @@ public class commonUtils {
         Therefore PrintStream class is used to log into separate file
         FileOutputStream generates file at runtime
         Filter is applied to req object
+        Since request specification is static, same req will be used for second iteration
+        If not static it will consider req as null again and process all the variables again
          */
-        PrintStream log = new PrintStream(new FileOutputStream("RequestResponseLogs.txt"));
-        req = new RequestSpecBuilder().setBaseUri(getGlobalValues("baseUrl")).addQueryParam("key", "qaclick123")
-                .addFilter(RequestLoggingFilter.logRequestTo(log))
-                .addFilter(ResponseLoggingFilter.logResponseTo(log))
-                .setContentType(ContentType.JSON).build();
-        return req;
+        if(req==null) {
+            PrintStream log = new PrintStream(new FileOutputStream("RequestResponseLogs.txt"));
+            req = new RequestSpecBuilder().setBaseUri(getGlobalValues("baseUrl")).addQueryParam("key", "qaclick123")
+                    .addFilter(RequestLoggingFilter.logRequestTo(log))
+                    .addFilter(ResponseLoggingFilter.logResponseTo(log))
+                    .setContentType(ContentType.JSON).build();
+            return req;
+        }
+        return  req;
 
     }
 

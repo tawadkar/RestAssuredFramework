@@ -8,4 +8,5 @@ Feature: Validate Place API's
 
     Examples:
     | name   | language | address          |
-    |TestUser|English   |World Trade Center|
+    |TestUser1|English   |World Trade Center|
+    |TestUser2|French    |World Cross Center|
