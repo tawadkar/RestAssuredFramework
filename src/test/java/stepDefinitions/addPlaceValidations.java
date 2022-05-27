@@ -29,7 +29,7 @@ public class addPlaceValidations extends commonUtils {
     ResponseSpecification res;
     Response response;
     TestDataBuilder data = new TestDataBuilder();
-
+    static String place_id; //place id is made static as same copy to be used across all the test
 
 
     @Given("Add Place Payload with {string} {string} {string}")
@@ -70,11 +70,17 @@ public class addPlaceValidations extends commonUtils {
 
     @Then("verify place_id from created map to {string} using {string} api")
     public void verify_place_id_from_created_map_to_using_api(String expectedName, String endPointName) throws IOException {
-        String place_id = getJsonPath(response,"place_id");
+        place_id = getJsonPath(response,"place_id");
         req = given().spec(requestSpecification()).queryParam("place_id",place_id);
         user_calls_api_with_request(endPointName,"GET");
         String actualName = getJsonPath(response,"name");
         Assert.assertEquals(actualName,expectedName);
     }
+
+    @Given(":User loads deletePlace payload")
+    public void user_loads_delete_place_payload() throws IOException {
+      req =given().spec(requestSpecification()).body(data.deletePlacePayload(place_id));
+    }
+
 
 }
