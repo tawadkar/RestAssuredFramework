@@ -10,10 +10,12 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+import org.testng.Assert;
 import pojoClasses.Location;
 import pojoClasses.addLocation;
 import resources.TestDataBuilder;
 import resources.commonUtils;
+import resources.endPoints;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -23,22 +25,35 @@ import java.util.List;
 import static io.restassured.RestAssured.given;
 
 public class addPlaceValidations extends commonUtils {
-    RequestSpecification res;
-    ResponseSpecification respec;
+    RequestSpecification req;
+    ResponseSpecification res;
     Response response;
     TestDataBuilder data = new TestDataBuilder();
+
+
+
     @Given("Add Place Payload with {string} {string} {string}")
     public void add_place_payload_with(String name, String language, String address) throws IOException {
         //Request Body, since this class is inheriting commonUtils we can use method from utils class directly without creating any object
-        res = given().spec(requestSpecification())
+        req = given().spec(requestSpecification())
                 .body(data.addPlacePayload(name,language,address));
     }
 
-    @When("User calls {string} api with POST Request")
-    public void user_calls_api_with_post_request(String string) {
-        respec = new ResponseSpecBuilder().expectStatusCode(200).expectContentType(ContentType.JSON).build();
-         response= res.when().post("maps/api/place/add/json")
-        .then().spec(respec).extract().response();
+    @When("User calls {string} api with {string} Request")
+    public void user_calls_api_with_request(String endPointName, String httpMethod) {
+        //valueOf invokes constructor for addPlace from enum class
+        endPoints ep =endPoints.valueOf(endPointName);
+        System.out.println(ep.getEndPoint());
+        res = new ResponseSpecBuilder().expectStatusCode(200).expectContentType(ContentType.JSON).build();
+
+        if(httpMethod.equalsIgnoreCase("POST"))
+        response= req.when().post(ep.getEndPoint());
+        else if (httpMethod.equalsIgnoreCase("GET")){
+
+            response= req.when().get(ep.getEndPoint());
+        }
+
+
     }
     @Then("API call is successful with status code {int}")
     public void api_call_is_successful_with_status_code(Integer int1) {
@@ -48,11 +63,18 @@ public class addPlaceValidations extends commonUtils {
     @Then("{string} in response body is {string}")
     public void in_response_body_is(String keyValue, String expectedValue) {
       String status = response.asString();
-        JsonPath js = new JsonPath(status);
-       // String actualValue = js.get(keyValue).toString();
-       // assertEquals(expectedValue,actualValue);
+
         System.out.println(status);
 
+    }
+
+    @Then("verify place_id from created map to {string} using {string} api")
+    public void verify_place_id_from_created_map_to_using_api(String expectedName, String endPointName) throws IOException {
+        String place_id = getJsonPath(response,"place_id");
+        req = given().spec(requestSpecification()).queryParam("place_id",place_id);
+        user_calls_api_with_request(endPointName,"GET");
+        String actualName = getJsonPath(response,"name");
+        Assert.assertEquals(actualName,expectedName);
     }
 
 }

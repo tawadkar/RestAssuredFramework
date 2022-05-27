@@ -1,10 +1,11 @@
 package resources;
 
-import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 import java.io.*;
@@ -42,5 +43,12 @@ public class commonUtils {
         fileValues.load(filepath);
         return fileValues.getProperty(key);
 
+    }
+
+    public String getJsonPath(Response response, String key){
+
+        String resp = response.asString();
+        JsonPath js = new JsonPath(resp);
+        return js.get(key).toString();
     }
 }
