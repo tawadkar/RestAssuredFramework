@@ -1,5 +1,5 @@
 Feature: Validate Place API's
-
+@AddPlace
   Scenario Outline: Verify addPlace API
     Given Add Place Payload with "<name>" "<language>" "<address>"
     #addPlaceAPI name should be same as one given in Enum file
@@ -13,6 +13,7 @@ Feature: Validate Place API's
     |TestUser1|English   |World Trade Center|
    # |TestUser2|French    |World Cross Center|
 
+  @DeletePlace
   Scenario: Verify deletePlaceAPI
     Given :User loads deletePlace payload
     When User calls "deletePlaceAPI" api with "POST" Request
