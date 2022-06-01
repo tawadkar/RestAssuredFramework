@@ -7,7 +7,8 @@ public enum endPoints {
      */
     addPlaceAPI("maps/api/place/add/json"),
     getPlaceAPI("/maps/api/place/get/json"),
-    deletePlaceAPI("maps/api/place/delete/json");
+    deletePlaceAPI("maps/api/place/delete/json"),
+    loginJiraAPI("/rest/auth/1/session");
     private String endPoint;
 
     /*Below constructor will be invoked and the value from endPoint will come from step definition

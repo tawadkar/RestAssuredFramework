@@ -2,6 +2,7 @@ package resources;
 
 import pojoClasses.Location;
 import pojoClasses.addLocation;
+import pojoClasses.jiraLogin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,5 +40,12 @@ public class TestDataBuilder {
     public String deletePlacePayload(String placeId){
 
         return "{\r\n \"place_id\":\""+placeId+"\"\r\n}";
+    }
+
+    public jiraLogin jiraLoginPayload(String username, String password){
+        pojoClasses.jiraLogin jiraSession= new jiraLogin();
+        jiraSession.setUsername("twadkar");
+        jiraSession.setPassword("tanmay0711");
+          return jiraSession;
     }
 }

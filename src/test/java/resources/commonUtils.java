@@ -12,7 +12,7 @@ import java.io.*;
 import java.util.Properties;
 
 public class commonUtils {
-    public static RequestSpecification req;
+   public static RequestSpecification req;
     public RequestSpecification requestSpecification() throws IOException {
 
         /*
@@ -50,5 +50,18 @@ public class commonUtils {
         String resp = response.asString();
         JsonPath js = new JsonPath(resp);
         return js.get(key).toString();
+    }
+
+    public  RequestSpecification jiraRequestSpec() throws IOException {
+        if(req==null) {
+            PrintStream log = new PrintStream(new FileOutputStream("RequestResponseLogs.txt"));
+            req = new RequestSpecBuilder().setBaseUri(getGlobalValues("jiraBaseUrl"))
+                    .addFilter(RequestLoggingFilter.logRequestTo(log))
+                    .addFilter(ResponseLoggingFilter.logResponseTo(log))
+                    .setContentType(ContentType.JSON).build();
+            return req;
+        }
+        return  req;
+
     }
 }
