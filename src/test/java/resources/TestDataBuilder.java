@@ -1,6 +1,7 @@
 package resources;
 
 import pojoClasses.Location;
+import pojoClasses.addBook;
 import pojoClasses.addLocation;
 import pojoClasses.jiraLogin;
 
@@ -47,5 +48,15 @@ public class TestDataBuilder {
         jiraSession.setUsername("twadkar");
         jiraSession.setPassword("tanmay0711");
           return jiraSession;
+    }
+
+    public addBook addBookPayload(String name, String isbn, String aisle, String author){
+     pojoClasses.addBook addBook = new addBook();
+     addBook.setName("Rest Assured123");
+     addBook.setIsbn("7823");
+     addBook.setAisle("rt23");
+     addBook.setAuthor("TestUser123");
+
+     return addBook;
     }
 }

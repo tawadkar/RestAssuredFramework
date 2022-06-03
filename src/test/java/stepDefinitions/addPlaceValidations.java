@@ -53,7 +53,6 @@ public class addPlaceValidations extends commonUtils {
             response= req.when().get(ep.getEndPoint());
         }
 
-
     }
     @Then("API call is successful with status code {int}")
     public void api_call_is_successful_with_status_code(Integer int1) {
@@ -77,7 +76,7 @@ public class addPlaceValidations extends commonUtils {
         Assert.assertEquals(actualName,expectedName);
     }
 
-    @Given(":User loads deletePlace payload")
+    @Given("User loads deletePlace payload")
     public void user_loads_delete_place_payload() throws IOException {
       req =given().spec(requestSpecification()).body(data.deletePlacePayload(place_id));
     }

@@ -64,4 +64,19 @@ public class commonUtils {
         return  req;
 
     }
+
+    public  RequestSpecification libraryRequestSpec() throws IOException {
+        if(req==null) {
+            PrintStream log = new PrintStream(new FileOutputStream("RequestResponseLogs.txt"));
+            req = new RequestSpecBuilder().setBaseUri(getGlobalValues("libraryBaseUrl"))
+                    .addFilter(RequestLoggingFilter.logRequestTo(log))
+                    .addFilter(ResponseLoggingFilter.logResponseTo(log))
+                    .setContentType(ContentType.JSON).build();
+            return req;
+        }
+        return  req;
+
+    }
+
+
 }
