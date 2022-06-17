@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class TestDataBuilder {
-
+    TestData td = new TestData();
     public addLocation addPlacePayload(String name, String language, String address ){
         pojoClasses.addLocation l = new addLocation();
         l.setAccuracy(50);
@@ -55,9 +55,8 @@ public class TestDataBuilder {
 
     public addBook addBookPayload(String name, String isbn, String aisle, String author) throws IOException {
      pojoClasses.addBook addBook = new addBook();
-     HashMap<String,Object> map  = new HashMap<>();
-     TestData td = new TestData();
-     ArrayList<String> d = td.getData("Sheet1","AddBook");
+
+     ArrayList<String> d = td.getData("Library","AddBook");
      addBook.setName(d.get(1));
      addBook.setIsbn(d.get(2));
      addBook.setAisle(d.get(3));
