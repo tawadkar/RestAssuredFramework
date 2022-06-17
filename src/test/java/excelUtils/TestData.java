@@ -14,13 +14,13 @@ import java.util.Iterator;
 
 public class TestData {
 
-    public ArrayList<String> getData(String getBook) throws IOException {
+    public ArrayList<String> getData(String sheetName , String testCaseName) throws IOException {
         ArrayList<String> data = new ArrayList<>();
         FileInputStream fis = new FileInputStream("T:\\restAssuredWorkSpace\\src\\test\\java\\resources\\TestData.xlsx");
         XSSFWorkbook workbook = new XSSFWorkbook(fis);
         int sheets = workbook.getNumberOfSheets();
         for(int i=0;i<sheets;i++){
-            if(workbook.getSheetName(i).equalsIgnoreCase("Sheet1")){
+            if(workbook.getSheetName(i).equalsIgnoreCase(sheetName)){
                 XSSFSheet sheet = workbook.getSheetAt(i);
 
                 Iterator<Row> rows = sheet.iterator(); //sheet is collection of rows
@@ -30,7 +30,7 @@ public class TestData {
                 int column=0;
                 while(cell.hasNext()) {
                     Cell Cellvalue = cell.next();
-                    if (Cellvalue.getStringCellValue().equalsIgnoreCase("TestCaseName")) {
+                    if (Cellvalue.getStringCellValue().equalsIgnoreCase(testCaseName)) {
                         column=k;
                     }
                     k++;
@@ -43,7 +43,7 @@ public class TestData {
                 while(rows.hasNext()){
 
                     Row Row = rows.next();
-                    if(Row.getCell(column).getStringCellValue().equalsIgnoreCase("GetBook")){
+                    if(Row.getCell(column).getStringCellValue().equalsIgnoreCase("AddBook")){
                         //After GetBook row is identified , pull all the data from that row and pass it to Test
 
                         Iterator<Cell> testCell =Row.cellIterator();

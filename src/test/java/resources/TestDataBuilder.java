@@ -1,11 +1,14 @@
 package resources;
 
+import excelUtils.TestData;
 import pojoClasses.Location;
 import pojoClasses.addBook;
 import pojoClasses.addLocation;
 import pojoClasses.jiraLogin;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class TestDataBuilder {
@@ -50,12 +53,15 @@ public class TestDataBuilder {
           return jiraSession;
     }
 
-    public addBook addBookPayload(String name, String isbn, String aisle, String author){
+    public addBook addBookPayload(String name, String isbn, String aisle, String author) throws IOException {
      pojoClasses.addBook addBook = new addBook();
-     addBook.setName("Rest Assured123");
-     addBook.setIsbn("7823");
-     addBook.setAisle("rt23");
-     addBook.setAuthor("TestUser123");
+     HashMap<String,Object> map  = new HashMap<>();
+     TestData td = new TestData();
+     ArrayList<String> d = td.getData("Sheet1","AddBook");
+     addBook.setName(d.get(1));
+     addBook.setIsbn(d.get(2));
+     addBook.setAisle(d.get(3));
+     addBook.setAuthor(d.get(4));
 
      return addBook;
     }
