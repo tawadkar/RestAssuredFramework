@@ -11,6 +11,8 @@ import io.restassured.specification.RequestSpecification;
 import java.io.*;
 import java.util.Properties;
 
+import static org.codehaus.groovy.tools.shell.util.Logger.io;
+
 public class commonUtils {
    public static RequestSpecification req;
     public RequestSpecification requestSpecification() throws IOException {
@@ -50,6 +52,12 @@ public class commonUtils {
         String resp = response.asString();
         JsonPath js = new JsonPath(resp);
         return js.get(key).toString();
+    }
+
+    public String getJsonPath(String response, String path){
+        JsonPath jsonPath = new JsonPath(response);
+        String accessToken  = jsonPath.getString(path);
+        return accessToken;
     }
 
     public  RequestSpecification jiraRequestSpec() throws IOException {

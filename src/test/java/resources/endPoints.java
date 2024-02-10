@@ -10,7 +10,8 @@ public enum endPoints {
     deletePlaceAPI("maps/api/place/delete/json"),
     loginJiraAPI("/rest/auth/1/session"),
     addBookAPI("/Library/Addbook.php"),
-    getBookAPI("/Library/GetBook.php");
+    getBookAPI("/Library/GetBook.php"),
+    getCourseDetailsAPI("https://rahulshettyacademy.com/oauthapi/getCourseDetails/oauthapi/getCourseDetails");
 
     private String endPoint;
 
