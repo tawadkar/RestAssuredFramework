@@ -41,7 +41,7 @@ public class addPlaceValidations extends commonUtils {
 
     @When("User calls {string} api with {string} Request")
     public void user_calls_api_with_request(String endPointName, String httpMethod) {
-        //valueOf invokes constructor for addPlace from enum class
+    //valueOf invokes constructor for addPlace from enum class
         endPoints ep =endPoints.valueOf(endPointName);
         System.out.println(ep.getEndPoint());
         res = new ResponseSpecBuilder().expectStatusCode(200).expectContentType(ContentType.JSON).build();

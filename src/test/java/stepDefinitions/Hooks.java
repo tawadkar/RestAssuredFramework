@@ -11,7 +11,7 @@ public class Hooks {
         addPlaceValidations steps = new addPlaceValidations();
         if(addPlaceValidations.place_id==null) {
             steps.add_place_payload_with("TestUser2", "Spanish", "Europe");
-            steps.user_calls_api_with_request("addPlaceAPI", "POST");
+          //  steps.user_calls_api_with_request("addPlaceAPI", "POST");
             steps.verify_place_id_from_created_map_to_using_api("TestUser2", "getPlaceAPI");
         }
     }

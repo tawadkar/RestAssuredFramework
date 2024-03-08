@@ -11,6 +11,8 @@ public enum endPoints {
     loginJiraAPI("/rest/auth/1/session"),
     addBookAPI("/Library/Addbook.php"),
     getBookAPI("/Library/GetBook.php"),
+    loginAPI("/api/ecom/auth/login"),
+    addProductAPI("/api/ecom/product/add-product"),
     getCourseDetailsAPI("https://rahulshettyacademy.com/oauthapi/getCourseDetails/oauthapi/getCourseDetails");
 
     private String endPoint;

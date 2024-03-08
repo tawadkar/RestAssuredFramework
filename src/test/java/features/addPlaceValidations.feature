@@ -1,5 +1,6 @@
 Feature: Validate Place API's
 @AddPlace
+@Capture
   Scenario Outline: Verify addPlace API
     Given Add Place Payload with "<name>" "<language>" "<address>"
     #addPlaceAPI name should be same as one given in Enum file
