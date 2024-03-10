@@ -10,6 +10,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+import org.junit.Assert;
 import pojoClasses.Orders;
 import pojoClasses.loginRequest;
 import pojoClasses.loginResponse;
@@ -34,6 +35,7 @@ public class createOrder {
     RequestSpecification addProductBaseReq;
     RequestSpecification createOrderBaseReq;
     RequestSpecification createOrderReq;
+    RequestSpecification deleteProductBaseReq;
     String token;
     String userId;
     String addProductResponse;
@@ -127,5 +129,22 @@ public class createOrder {
 
         System.out.println("Create Order Response" + orderResponse);
 
+    }
+
+    @Then("User deletes Order using  {string}")
+    public void user_deletes_order_using(String endPointName) throws IOException {
+        endPoints ep =endPoints.valueOf(endPointName);
+     deleteProductBaseReq =  new RequestSpecBuilder().setBaseUri(getGlobalValues("baseUrl"))
+             .addHeader("authorization",token)
+             .setContentType(ContentType.JSON)
+             .build();
+
+     RequestSpecification deleteProductReq = given().log().all().spec(deleteProductBaseReq).pathParams("productId",productId);
+
+     String deleteOrderResponse = deleteProductReq.when().delete(ep.getEndPoint()).then().log().all().extract().response().asString();
+
+       String  deleteProductMessage = utils.getJsonPath(deleteOrderResponse,"message");
+
+        Assert.assertEquals("Product Deleted Successfully",deleteProductMessage);
     }
 }

@@ -13,6 +13,8 @@ public enum endPoints {
     getBookAPI("/Library/GetBook.php"),
     loginAPI("/api/ecom/auth/login"),
     addProductAPI("/api/ecom/product/add-product"),
+    createOrderAPI("/api/ecom/order/create-order"),
+    deleteOrderAPI("/api/ecom/product/delete-product/{productId}"),
     getCourseDetailsAPI("https://rahulshettyacademy.com/oauthapi/getCourseDetails/oauthapi/getCourseDetails");
 
     private String endPoint;

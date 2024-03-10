@@ -7,6 +7,7 @@ Feature: Validate Create Order API's
     When User adds Order using "addProductAPI"
     Then API call is successful with message "Product Added Successfully"
     And User creates Order using "createOrderAPI"
+    And User deletes Order using  "deleteOrderAPI"
 
 #User Name keeps on changing , update it from V76
     Examples:
